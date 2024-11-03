@@ -13,6 +13,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        submodules: true  # Initializes and updates submodules
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -33,17 +35,17 @@ jobs:
 
     - name: Initialize and update submodules
       run: |
-        cd batocera.linux
+        cd ${{ github.workspace }}/batocera.linux
         git submodule init
         git submodule update
 
     - name: Build Batocera
       run: |
-        cd batocera.linux
+        cd ${{ github.workspace }}/batocera.linux
         make rk3588-build
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
         name: batocera-images
-        path: batocera.linux/output/images/batocera/images/
+        path: ${{ github.workspace }}/batocera.linux/output/images/batocera/images/
