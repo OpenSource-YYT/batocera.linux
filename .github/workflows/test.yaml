@@ -12,13 +12,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        submodules: true  # Initializes and updates submodules
-
-    - name: List directory contents
-      run: |
-        ls -R ${{ github.workspace }} 
+      uses: actions/checkout@v2s
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -40,8 +34,9 @@ jobs:
     - name: Initialize and update submodules
       run: |
         cd ${{ github.workspace }}
+        rm -rf buildroot
         git submodule init
-        git submodule update
+        git submodule update --init --recursive 
 
     - name: Build Batocera
       run: |
