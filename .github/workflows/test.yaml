@@ -1,0 +1,49 @@
+name: Compile RK3588
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential git libncurses5-dev libssl-dev \
+          mercurial texinfo zip default-jre imagemagick subversion autoconf \
+          automake bison scons libglib2.0-dev bc mtools u-boot-tools flex \
+          wget cpio dosfstools libtool gcc-multilib g++-multilib
+        sudo dpkg --add-architecture i386
+        sudo apt-get update
+        sudo apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386
+        pip3 install conan
+
+    - name: Initialize and update submodules
+      run: |
+        cd batocera.linux
+        git submodule init
+        git submodule update
+
+    - name: Build Batocera
+      run: |
+        cd batocera.linux
+        make rk3588-build
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: batocera-images
+        path: batocera.linux/output/images/batocera/images/
