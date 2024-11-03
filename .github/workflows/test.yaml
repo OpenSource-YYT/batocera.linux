@@ -43,7 +43,7 @@ jobs:
         make rk3588-build
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: batocera-images
         path: batocera.linux/output/images/batocera/images/
