@@ -42,7 +42,7 @@ jobs:
       run: |
         cd ${{ github.workspace }}
         docker pull batoceralinux/batocera.linux-build:latest
-        make rk3588-build
+        script -q -c "make rk3588-build" /dev/null
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
