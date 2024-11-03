@@ -41,7 +41,7 @@ jobs:
     - name: Build Batocera
       run: |
         cd ${{ github.workspace }}
-        make batocera-docker-image
+        docker pull batoceralinux/batocera.linux-build:latest
         make rk3588-build
 
     - name: Upload artifacts
