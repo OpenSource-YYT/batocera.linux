@@ -16,6 +16,10 @@ jobs:
       with:
         submodules: true  # Initializes and updates submodules
 
+    - name: List directory contents
+      run: |
+        ls -R ${{ github.workspace }} 
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -35,17 +39,17 @@ jobs:
 
     - name: Initialize and update submodules
       run: |
-        cd ${{ github.workspace }}/batocera.linux
+        cd ${{ github.workspace }}
         git submodule init
         git submodule update
 
     - name: Build Batocera
       run: |
-        cd ${{ github.workspace }}/batocera.linux
+        cd ${{ github.workspace }}
         make rk3588-build
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
         name: batocera-images
-        path: ${{ github.workspace }}/batocera.linux/output/images/batocera/images/
+        path: ${{ github.workspace }}/output/images/batocera/images/
