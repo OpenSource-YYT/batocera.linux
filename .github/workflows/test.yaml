@@ -46,7 +46,7 @@ jobs:
     - name: Build Batocera
       run: |
         cd ${{ github.workspace }}
-        make rk3588-build
+        make rk3588-cleanbuild
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
