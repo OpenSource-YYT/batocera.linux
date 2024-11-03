@@ -1,0 +1,4 @@
+config BR2_PACKAGE_UBOOT_YOUYEETOO_R1
+    bool "uboot-youyeetoo-r1"
+    help
+      U-Boot files for Youyeetoo R1
