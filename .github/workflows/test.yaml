@@ -28,7 +28,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential git libncurses5-dev libssl-dev docker.io \
+        sudo apt-get install -y build-essential git libncurses5-dev libssl-dev \
           mercurial texinfo zip default-jre imagemagick subversion autoconf \
           automake bison scons libglib2.0-dev bc mtools u-boot-tools flex \
           wget cpio dosfstools libtool gcc-multilib g++-multilib
@@ -46,7 +46,8 @@ jobs:
     - name: Build Batocera
       run: |
         cd ${{ github.workspace }}
-        make -j$(nproc) rk3588-build
+        make batocera-docker-image
+        make rk3588-build
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
